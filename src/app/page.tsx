@@ -1,40 +1,49 @@
 "use client";
 import TopBar from "@/components/TopBar";
 import { getMoviesListing } from "../../services/MovieServices";
-import { useState } from "react";
-import useSWR from "swr";
+import { useState, useEffect } from "react";
+import useSWRInfinite from "swr/infinite";
 import MoviesList from "@/components/list/MoviesList";
-import { getMovieGenres } from "../../services/GenreServices";
-
-// async function getData() {
-//   const res = await getUpcomingMovies();
-//   // The return value is *not* serialized
-//   // You can return Date, Map, Set, etc.
-
-//   // Recommendation: handle errors
-//   if (!res.ok) {
-//     // This will activate the closest `error.js` Error Boundary
-//     throw new Error("Failed to fetch data");
-//   }
-
-//   return res.json();
-// }
+import { IMovie, IMoviesResponse } from "@/interfaces/Interfaces";
 
 export default function Home() {
+  const [isInfiniteScrollActive, setIsInfiniteScrollActive] =
+    useState<boolean>(false);
   const [sortingCriteria, setSetsortingCriteria] = useState<any>("popular");
 
-  const { data, error, isLoading } = useSWR(sortingCriteria, getMoviesListing);
-  const { genresData, genresError, isLoadingGenres } = useSWR(
-    "/",
-    getMovieGenres
+  const { data, size, setSize, isLoading } = useSWRInfinite(
+    (index: number) => ({ criteria: sortingCriteria, page: index + 1 }),
+    getMoviesListing
   );
 
-  console.log("DATA", genresData);
+  const dataPlaceholder: IMoviesResponse[] = [];
+  const jointData = data ? dataPlaceholder.concat(...data) : [];
+
+  const moviesList = jointData.reduce(
+    (accumulator: IMovie[], current) => accumulator.concat(current.results),
+    []
+  );
+
+  useEffect(() => {
+    const handleScroll = (e: Event) => {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (window.scrollY >= scrollableHeight && isInfiniteScrollActive) {
+        setSize(size + 1);
+      }
+    };
+    document.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, [size]);
+
   return (
     <div className="w-screen flex flex-col items-center">
       <TopBar />
       <div className="w-9/12 max-w-7xl py-6">
         <h2 className="text-2xl font-semibold">Popular movies</h2>
+        <button onClick={() => setSize(size + 1)}>Load More</button>
         <div className="w-full flex">
           <div className="flex-1 flex">
             <button onClick={() => setSetsortingCriteria("popular")}>
@@ -45,10 +54,21 @@ export default function Home() {
             </button>
           </div>
           <div className="">
-            {isLoading ? (
+            {!data || isLoading ? (
               <div>Loading</div>
             ) : (
-              <MoviesList movies={data.results} />
+              <div className="flex flex-col">
+                <MoviesList movies={moviesList} />
+                <button
+                  onClick={() => {
+                    setSize(size + 1);
+                    setIsInfiniteScrollActive(true);
+                  }}
+                  className="h-12 w-full text-3xl font-bold text-white bg-sky-500 my-4 rounded-xl"
+                >
+                  Load more
+                </button>
+              </div>
             )}
           </div>
         </div>
