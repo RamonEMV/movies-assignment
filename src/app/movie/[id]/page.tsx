@@ -1,7 +1,4 @@
-import {
-  getMovieWithDetails,
-  getReleaseDates,
-} from "../../../../services/MovieServices";
+import { getMovieWithDetails, getReleaseDates } from "@/services/MovieServices";
 import TopBar from "@/components/TopBar";
 import DetailsTopBar from "@/components/details/DetailsTopBar";
 import { IMovieWithDetails } from "../../../interfaces/Interfaces";
