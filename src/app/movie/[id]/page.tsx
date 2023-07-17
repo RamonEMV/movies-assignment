@@ -22,7 +22,7 @@ export default async function MovieDetailsPage({
 }: MovieDetailsPageProps) {
   const movieData: IMovieWithDetails = await getMovieWithDetails(params.id);
 
-  const ratingData = await getReleaseDates(movieData.id, "MX");
+  const ratingData = await getReleaseDates(movieData.id);
 
   const rating = ratingData?.results.find(
     (rating) => rating.iso_3166_1 === "MX"
