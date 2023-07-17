@@ -1,10 +1,20 @@
-import { IReleaseDate } from "@/interfaces/Interfaces";
+import {
+  IMovieWithDetails,
+  IMoviesResponse,
+  IReleaseDate,
+} from "@/interfaces/Interfaces";
 
 export async function getMoviesListing(
-  criteria: "top_rated" | "upcoming" | "popular" = "popular"
-) {
+  options: {
+    criteria: "top_rated" | "upcoming" | "popular";
+    page: number;
+  } = {
+    criteria: "popular",
+    page: 1,
+  }
+): Promise<IMoviesResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}movie/${criteria}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+    `${process.env.NEXT_PUBLIC_API_URL}movie/${options.criteria}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&page=${options.page}`
   );
 
   if (!res.ok) {
@@ -14,7 +24,9 @@ export async function getMoviesListing(
   return res.json();
 }
 
-export async function getMovieWithDetails(id: number) {
+export async function getMovieWithDetails(
+  id: number
+): Promise<IMovieWithDetails> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&append_to_response=credits`
   );
@@ -26,7 +38,7 @@ export async function getMovieWithDetails(id: number) {
   return res.json();
 }
 
-export async function getReleaseDates(id: number) {
+export async function getReleaseDates(id: number): Promise<IReleaseDate> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}movie/${id}/release_dates?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
@@ -37,7 +49,7 @@ export async function getReleaseDates(id: number) {
 
   const data = res.json();
 
-  const result = data as unknown as IReleaseDate;
+  const result = data;
 
   return result;
 }
