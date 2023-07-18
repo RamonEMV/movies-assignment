@@ -31,18 +31,19 @@ const MovieListItem: FunctionComponent<MovieListItemProps> = ({ movie }) => {
         height={27}
         className="text-gray-400 absolute right-2 top-2 opacity-90"
       />
-      <Link href={`/movie/${movie.id}`}>
-        <img
-          src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${movie.poster_path}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`}
-          alt={`${movie.title} poster`}
-          className="w-48"
-        />
-      </Link>
+      <div className="h-4/6">
+        <Link href={`/movie/${movie.id}`}>
+          <img
+            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${movie.poster_path}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`}
+            alt={`${movie.title} poster`}
+          />
+          <div className="absolute h-10 w-10 bottom-24 mb-2">
+            <VotesMarker percentage={scorePercentage} />
+          </div>
+        </Link>
+      </div>
 
-      <div className="p-2 pt-5">
-        <div className="absolute h-10 w-10 bottom-24">
-          <VotesMarker percentage={scorePercentage} />
-        </div>
+      <div className="p-2 mt-4 h-2/6">
         <Link href={`/movie/${movie.id}`}>
           <p className="font-bold line-clamp-2">{movie.title}</p>
         </Link>
