@@ -1,6 +1,6 @@
-import { IGenre } from "@/interfaces/Interfaces";
+import { IGenre, IGenresResponse } from "@/interfaces/Interfaces";
 
-export async function getMovieGenres(): Promise<IGenre[]> {
+export async function getMovieGenres(): Promise<IGenresResponse> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
   );
