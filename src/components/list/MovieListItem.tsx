@@ -3,6 +3,7 @@ import { IGenre, IMovie } from "../../interfaces/Interfaces";
 import VotesMarker from "@/components/VotesMarker/VotesMarker";
 import { EllipsisHorizontalCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import Image from "next/image";
 import moment from "moment";
 import GenresContext from "@/context/genresContext";
 
@@ -33,10 +34,20 @@ const MovieListItem: FunctionComponent<MovieListItemProps> = ({ movie }) => {
       />
       <div className="">
         <Link href={`/movie/${movie.id}`}>
-          <img
-            src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${movie.poster_path}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`}
-            alt={`${movie.title} poster`}
-          />
+          {movie.poster_path ? (
+            <img
+              src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${movie.poster_path}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`}
+              alt={`${movie.title} poster`}
+            />
+          ) : (
+            <Image
+              src={"/placeholder.svg"}
+              alt={"placeholder"}
+              height={175}
+              width={144}
+              className="w-full h-full"
+            />
+          )}
           <div className="relative h-2 w-10 bottom-6 ">
             <VotesMarker percentage={scorePercentage} />
           </div>
