@@ -144,3 +144,19 @@ export interface IGenre {
 export interface IGenresResponse {
   genres: IGenre[];
 }
+
+export interface IMoviesListingParams {
+  criteria: SortingCriteria;
+  page?: number;
+  fromReleaseDate?: string;
+  toReleaseDate?: string;
+  genres?: number[];
+  userScore?: number[];
+  runtime?: number[];
+}
+
+export enum SortingCriteria {
+  POPULAR = "popular",
+  TOP_RATED = "top_rated",
+  UPCOMING = "upcoming",
+}
