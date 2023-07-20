@@ -16,7 +16,7 @@ const BasicInfoCard: FunctionComponent<BasicInfoCardProps> = ({ movie }) => {
       </div>
       <div className="flex flex-col space-y-1">
         <p className="font-semibold">Original Language</p>
-        <p>{languageCodes[movie.original_language as any]}</p>
+        <p>{languageCodes[movie.original_language]}</p>
       </div>
       <div className="flex flex-col space-y-1">
         <p className="font-semibold">Budget</p>
