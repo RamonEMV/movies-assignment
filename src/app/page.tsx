@@ -83,10 +83,10 @@ export default function Home() {
 
   return (
     <GenresContext.Provider value={genresData}>
-      <div className="w-screen flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
         <TopBar />
         <div className="w-9/12 max-w-7xl py-6">
-          <h2 className="text-2xl font-semibold">Popular movies</h2>
+          <h2 className="text-3xl font-semibold">Movies Listing</h2>
           <div className="w-full flex">
             <FiltersPanel
               fromDateFilter={fromDateFilter}
@@ -104,7 +104,7 @@ export default function Home() {
               setUserScoreFilter={setUserScoreFilter}
               onSubmitSearch={onSubmitSearch}
             />
-            <div className="w-2/3">
+            <div className="">
               {!data || isLoading ? (
                 <div className="w-full h-full">
                   <LoadingSpinner />

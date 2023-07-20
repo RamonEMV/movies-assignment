@@ -22,7 +22,7 @@ export default async function MovieDetailsPage({
   const ratingData = await getReleaseDates(movieData.id);
 
   const rating = ratingData?.results.find(
-    (rating) => rating.iso_3166_1 === "MX"
+    (rating) => rating.iso_3166_1 === "US"
   )?.release_dates[0].certification;
 
   const durationInHours = toHoursAndMinutes(movieData.runtime);
@@ -32,7 +32,7 @@ export default async function MovieDetailsPage({
     .slice(0, 9);
 
   return (
-    <div className="w-screen flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       <TopBar />
       <DetailsTopBar />
       <div
@@ -43,7 +43,7 @@ export default async function MovieDetailsPage({
           backgroundSize: "cover",
         }}
       >
-        <div className="flex p-6 min-w-7xl items-start">
+        <div className="flex p-6 w-9/12 max-w-7xl py-6 items-start">
           <img
             className="rounded-xl object-contain"
             src={`${process.env.NEXT_PUBLIC_IMAGE_BASE_URL}${movieData.poster_path}?api_key=${process.env.NEXT_PUBLIC_API_KEY}`}
@@ -58,7 +58,7 @@ export default async function MovieDetailsPage({
               {`(${new Date(movieData.release_date).getUTCFullYear()})`}
             </p>
             <div className="flex py-3 text-lg items-center">
-              <p className="border rounded-md border-white w-6 h-6 flex justify-center items-center text-gray-400">
+              <p className="border rounded-md border-white px-2 py-1 flex justify-center items-center text-gray-400">
                 {rating}
               </p>
               <p className="text-white px-3">
@@ -91,8 +91,8 @@ export default async function MovieDetailsPage({
           </div>
         </div>
       </div>
-      <div className="flex mt-8 w-full">
-        <div className="flex flex-col ">
+      <div className="flex mt-8  w-9/12 max-w-7xl ">
+        <div className="flex flex-col w-3/4">
           <CastSlider title="Top Billed Cast" cast={movieData.credits.cast} />
         </div>
         <div className="flex flex-col">

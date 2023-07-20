@@ -4,17 +4,21 @@ import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 interface FilterContainerProps {
   title: string;
   children: ReactNode;
+  className?: string;
 }
 
 const FilterContainer: FunctionComponent<FilterContainerProps> = ({
   children,
   title,
+  className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="bg-white drop-shadow-md border rounded-lg flex flex-col p-3">
+    <div
+      className={`bg-white drop-shadow-md border rounded-lg flex flex-col p-4 ${className}`}
+    >
       <div className="flex justify-between">
-        <p className="font-bold text-xl">{title}</p>
+        <p className="font-semibold text-lg">{title}</p>
         {isOpen ? (
           <ChevronDownIcon
             className="stroke-2"

@@ -9,7 +9,7 @@ interface BasicInfoCardProps {
 
 const BasicInfoCard: FunctionComponent<BasicInfoCardProps> = ({ movie }) => {
   return (
-    <div className="flex flex-col gap-3 mt-4">
+    <div className="flex flex-col gap-3 mt-4 px-2">
       <div className="flex flex-col space-y-1">
         <p className="font-semibold">Status</p>
         <p>{movie.status}</p>

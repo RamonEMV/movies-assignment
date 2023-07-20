@@ -42,8 +42,8 @@ const FiltersPanel: FunctionComponent<FiltersPanelProps> = ({
   onSubmitSearch,
 }) => {
   return (
-    <div className="flex flex-1 flex-col pr-4 w-1/3 gap-3">
-      <FilterContainer title="Sort">
+    <div className="flex flex-1 flex-col pr-4 gap-3">
+      <FilterContainer title="Sort" className="w-64">
         <button
           className={`border p-2 ${
             sortingCriteria === SortingCriteria.POPULAR
@@ -75,7 +75,7 @@ const FiltersPanel: FunctionComponent<FiltersPanelProps> = ({
           Top rated
         </button>
       </FilterContainer>
-      <FilterContainer title="Filters">
+      <FilterContainer title="Filters" className="w-64">
         <FilterSection title="Release Dates">
           <div className="flex flex-col gap-2">
             <div className="flex justify-between gap-3 items-center">
