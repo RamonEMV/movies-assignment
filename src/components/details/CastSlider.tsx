@@ -1,4 +1,3 @@
-"use client";
 import { ICast } from "@/interfaces/Interfaces";
 import { FunctionComponent } from "react";
 import CastListItem from "./CastListItem";

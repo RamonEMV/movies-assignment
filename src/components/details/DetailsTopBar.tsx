@@ -1,8 +1,4 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import { PlusIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const DetailsTopBar = () => {
   return (
